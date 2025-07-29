@@ -5,3 +5,10 @@ It should work in the following manner:
     1.1. Separate the book into sentences
     1.2. Each sentence should be translated, and data stored
 2. Book viewer tool, when you hover over a sentence it translates it
+
+
+Uses AI to turn PDF into text
+
+Uses ai to turn text into scenes, come up with questions after each scene, translate each sentence and store.
+
+SQL to store sentences, scenes, questions
