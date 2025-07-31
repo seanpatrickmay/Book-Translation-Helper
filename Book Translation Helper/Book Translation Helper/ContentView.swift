@@ -77,14 +77,17 @@ struct ContentView: View {
                     sentences = splitSentences.map { SentenceTranslation(original: $0, translation: "") }
                     Task {
                         print("Beginning translation of sentences")
-                        let translator = SentenceTranslator.shared
+                        let translator = SentenceTranslator.sharedTranslator
+                        let appropriator = SentenceTranslator.sharedAppropriator
                         for idx in sentences.indices {
                             var attempts = 0
                             let maxAttempts = 3
                             var success = false
+                            let madeAppropriate = try await appropriator.makeSentenceAppropriate(sentences[idx].original)
+                            print("Made appropriate string: \(madeAppropriate) from: \(sentences[idx].original)")
                             while attempts < maxAttempts && !success {
                                 do {
-                                    let translated = try await translator.translateToEnglish(sentences[idx].original, attemptNumber: attempts + 1)
+                                    let translated = try await translator.translateToEnglish(madeAppropriate, attemptNumber: attempts + 1)
                                     sentences[idx].translation = translated
                                     success = true
                                 } catch {
